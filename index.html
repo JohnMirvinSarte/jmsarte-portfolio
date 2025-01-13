@@ -4,9 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Page</title>
+    <meta name="description" content="John Mirvin Sarte - Information Systems Student & Web Developer Portfolio. Specializing in creating elegant and user-friendly websites and software tools.">
+    <meta name="keywords" content="John Mirvin Sarte, web developer, software developer, Information Systems, portfolio, Philippines">
+    <meta name="author" content="John Mirvin Sarte">
+    
+    <title>John Mirvin Sarte - Web Portfolio</title>
     <link rel="stylesheet" type="text/css" href="SRC/style/style.css">
-    <link rel="icon" href="Assets/favicons/favicon.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path fill='%234a90e2' d='M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z'/></svg>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -23,7 +27,7 @@
             <a href="SRC/pages/skills.html">Skills</a>
             <a href="SRC/pages/education.html">Education</a>
             <a href="SRC/pages/career.html">Career as a Student</a>
-            <a href="SRC/pages/hobbies.html">Hobbies</a>
+            <a href="SRC/pages/hobbies.html">Certificates</a>
             <a href="SRC/pages/testimonials.html">Testimonials</a>
         </div>
 
@@ -40,19 +44,17 @@
         <section class="about" id="about">
             <div class="about-content">
                 <div class="column right">
-                    <img src="Assets/main-image.jpg" alt="">
+                    <img src="Assets/main-image.jpg" alt="" class="profile-image">
                 </div>
                 <div class="column left">
-                    <div class="text">I'm John Mirvin and I'm a <span id="typed" class="iAm"></span></div>
-                    <p>
-                        A 21 years old Senior Information System Student with a deep passion for crafting elegant and user-friendly websites and Software Tools as a Student.
-                        With a creative mindset and strong technical skills, I specialize in turning web and software tool
-                        ideas into visually stunning and functional realities.
+                    <div class="text animate-text">I'm John Mirvin and I'm a <span id="typed" class="iAm"></span></div>
+                    <p class="animate-text-delay">
+                        A driven Senior Information Systems student with a proven track record of developing sophisticated web applications and software solutions. Combining strong analytical thinking with technical expertise, I transform complex requirements into elegant, user-centric designs. My passion lies in crafting seamless digital experiences through clean, documented code and innovative problem-solving, consistently delivering projects that exceed expectations.
 
                     </p>
-                    <div class="buttons">
-                        <a href="https://drive.google.com/drive/folders/1RxPDfpz9QKnPcG-fzDwYa5PzYMufZ27M?usp=sharing">Download CV & Resume</a>
-                        <a href="https://drive.google.com/drive/folders/1JalHZ6dcrpxQlFnzfrXNTJ-8DPATyhKl?usp=sharing" class="cm-button">View My Certificates</a>
+                    <div class="buttons animate-buttons">
+                        <a href="https://drive.google.com/drive/folders/1RxPDfpz9QKnPcG-fzDwYa5PzYMufZ27M?usp=sharing" class="glow-button">Download CV & Resume</a>
+                        <a href="https://drive.google.com/drive/folders/1JalHZ6dcrpxQlFnzfrXNTJ-8DPATyhKl?usp=sharing" class="cm-button glow-button">View My Certificates</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +62,7 @@
 
         <footer class="footer">
             <div class="left">
-                &copy; 2024 • S. John Mirvin • All Rights Reserved
+                &copy; 2025 • S. John Mirvin • All Rights Reserved
             </div>
             <div class="right">
                 <div class="social"><a href="https://www.facebook.com/mirvin.sarte/" target="_blank"><i
@@ -82,6 +84,70 @@
             strings: ['Web Developer', 'Warrior', 'Son', 'Lover', 'Friend', 'Classmate', 'Information System Student'],
             typeSpeed: 55,
         });
+    </script>
+
+    <!-- Add particles.js -->
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#4a90e2"
+                    },
+                    "shape": {
+                        "type": "circle"
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#4a90e2",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    }
+                },
+                "retina_detect": true
+            }
+        );
     </script>
 
 </body>
