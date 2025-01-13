@@ -6,7 +6,7 @@ let navtc = document.querySelector('#nav-tc-js');
 menu.onclick = () => {
 	menuicon.classList.toggle('bx-x');
 	navbar.classList.toggle('open');
-	navtc.classList.toggle("nav-touch-close-open");
+	navbar.style.zIndex = navbar.classList.contains('open') ? "1000" : "";
 }
 
 navtc.onclick = () => {
@@ -168,3 +168,183 @@ function sendMail() {
 	// 		console.log(error);
 	// 	})
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Function to animate a single progress bar
+	function animateProgressBar(skill) {
+		// Ensure the skill element is visible
+		skill.style.visibility = 'visible';
+		skill.style.opacity = '1';
+
+		const progressBar = skill.querySelector('.progress-per');
+		const percentageText = skill.querySelector('.progress-block');
+		const targetPercentage = parseInt(percentageText.textContent);
+		
+		// Make sure elements are visible
+		progressBar.style.visibility = 'visible';
+		percentageText.style.visibility = 'visible';
+		
+		// Reset to starting state
+		progressBar.style.width = '0%';
+		percentageText.textContent = '0%';
+		
+		// Add animation class
+		progressBar.classList.add('animate');
+		
+		// Animate the percentage number
+		let startTime;
+		const duration = 2000;
+
+		function updateNumber(currentTime) {
+			if (!startTime) startTime = currentTime;
+			const elapsed = currentTime - startTime;
+			const progress = Math.min(elapsed / duration, 1);
+			
+			const currentValue = Math.round(progress * targetPercentage);
+			percentageText.textContent = `${currentValue}%`;
+			
+			if (progress < 1) {
+				requestAnimationFrame(updateNumber);
+			}
+		}
+
+		// Start animations
+		setTimeout(() => {
+			progressBar.style.width = `${targetPercentage}%`;
+			requestAnimationFrame(updateNumber);
+		}, 100);
+	}
+
+	// Initialize animation for all skills immediately
+	const skills = document.querySelectorAll('.skill');
+	let delay = 200;
+
+	// Immediately animate all skills with a stagger
+	skills.forEach((skill, index) => {
+		// Ensure the skill section is visible
+		skill.style.visibility = 'visible';
+		skill.style.opacity = '1';
+		
+		setTimeout(() => {
+			animateProgressBar(skill);
+		}, delay * index);
+	});
+
+	// Make sure parent containers are visible
+	document.querySelectorAll('.skills-group-row').forEach(row => {
+		row.style.visibility = 'visible';
+		row.style.opacity = '1';
+	});
+
+	// Optional: Handle window resize
+	let resizeTimeout;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(() => {
+			skills.forEach((skill, index) => {
+				setTimeout(() => {
+					animateProgressBar(skill);
+				}, delay * index);
+			});
+		}, 250);
+	});
+
+	// Scroll to top button
+	const scrollButton = document.createElement('button');
+	scrollButton.innerHTML = '↑';
+	scrollButton.className = 'scroll-top';
+	document.body.appendChild(scrollButton);
+
+	window.onscroll = () => {
+		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+			scrollButton.style.display = 'block';
+		} else {
+			scrollButton.style.display = 'none';
+		}
+	};
+
+	scrollButton.onclick = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	};
+
+	// Add hover effects for skill cards
+	const skillCards = document.querySelectorAll('.skill');
+	skillCards.forEach(card => {
+		card.addEventListener('mouseenter', function() {
+			this.style.transform = 'translateY(-5px) scale(1.02)';
+			this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+			
+			// Updated icon animation
+			const icon = this.querySelector('.icon-img');
+			icon.style.transform = 'scale(1.2) translateY(-5px)';
+			icon.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+			icon.style.color = '#4a90e2'; // Add a color change
+			
+			const progressBar = this.querySelector('.progress-per');
+			progressBar.style.animation = 'pulse 1s infinite';
+		});
+
+		card.addEventListener('mouseleave', function() {
+			this.style.transform = 'translateY(0) scale(1)';
+			this.style.boxShadow = 'none';
+			
+			// Smooth reset of icon
+			const icon = this.querySelector('.icon-img');
+			icon.style.transform = 'scale(1) translateY(0)';
+			icon.style.color = ''; // Reset color
+			
+			const progressBar = this.querySelector('.progress-per');
+			progressBar.style.animation = 'none';
+		});
+	});
+
+	// Add click interaction
+	skillCards.forEach(card => {
+		card.addEventListener('click', function() {
+			// Add a quick "press" animation
+			this.style.transform = 'scale(0.95)';
+			setTimeout(() => {
+				this.style.transform = 'scale(1)';
+			}, 150);
+
+			// Trigger progress bar animation reset
+			const progressBar = this.querySelector('.progress-per');
+			const percentageText = this.querySelector('.progress-block');
+			const targetPercentage = parseInt(percentageText.textContent);
+			
+			// Reset and replay the animation
+			progressBar.style.width = '0%';
+			percentageText.textContent = '0%';
+			
+			setTimeout(() => {
+				progressBar.style.width = `${targetPercentage}%`;
+				animateNumber(percentageText, targetPercentage);
+			}, 50);
+		});
+	});
+
+	// Helper function for number animation
+	function animateNumber(element, target) {
+		let current = 0;
+		const increment = target / 50; // Divide animation into 50 steps
+		const interval = setInterval(() => {
+			current += increment;
+			if (current >= target) {
+				current = target;
+				clearInterval(interval);
+			}
+			element.textContent = `${Math.round(current)}%`;
+		}, 20);
+	}
+});
+
+// Add these CSS keyframes to your stylesheet
+const style = document.createElement('style');
+style.textContent = `
+	@keyframes pulse {
+		0% { opacity: 1; }
+		50% { opacity: 0.7; }
+		100% { opacity: 1; }
+	}
+`;
+document.head.appendChild(style);
