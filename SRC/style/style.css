@@ -14,17 +14,17 @@ img {
 }
 
 :root {
-	/* --bg-color: radial-gradient(circle at 60% 50%, rgba(238,174,202,1) 0%, rgb(127, 172, 224) 100%); */
-	--bg-color: radial-gradient(circle at 70% 50%, rgba(238, 174, 202, 1) 0%, rgb(145, 167, 192) 100%);
-	--text-color: #363636;
-	--main-color: brown;
-	/* --main-color: hsl(250, 52%, 36%); */
+    --bg-color: radial-gradient(circle at 70% 50%, #1a4789 0%, #002366 100%);
+    --text-color: #ffffff;
+    --main-color: #4a90e2;
+    --accent-color: #64ffda;
+    --card-bg: rgba(26, 71, 137, 0.2);
+    --hover-color: rgba(74, 144, 226, 0.1);
+    --border-radius: 12px;
 }
 
 body {
 	min-height: 100vh;
-	/* position: relative;
-	top: 150px; */
 	background: var(--bg-color);
 	color: var(--text-color);
 }
@@ -71,40 +71,53 @@ header.scrolled {
 
 .navbar {
 	display: flex;
+	align-items: center;
 }
 
 .navbar a {
-	position: relative;
 	color: var(--text-color);
 	font-size: 1.1rem;
-	font-weight: 600;
+	font-weight: 500;
 	padding: 5px 0;
-	margin: 0px 20px;
-	transition: all .50s ease;
-	display: flex;
-	justify-content: center;
-}
-
-.navbar a::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	width: 0px;
-	height: 2px;
-	border-radius: 10px;
-	background-color: var(--text-color);
-	transition: all 0.3s ease;
-	opacity: 0;
-}
-
-.navbar a:hover::before {
-	width: 100%;
-	opacity: 1;
+	margin: 0px 30px;
+	transition: all 0.50s ease;
 }
 
 .navbar a:hover {
-	color: var(--main-color);
-	transform: scale(1.1);
+	color: var(--accent-color);
+}
+
+.navbar a.active {
+	color: var(--accent-color);
+}
+
+/* Menu icon styles */
+.menu-icon-container {
+	display: none;
+	font-size: 35px;
+	cursor: pointer;
+}
+
+@media (max-width: 1280px) {
+	.menu-icon-container {
+		display: block;
+	}
+
+	.navbar {
+		background: var(--card-bg);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.navbar a {
+		margin: 0.5rem 0;
+		width: 100%;
+		border-radius: var(--border-radius);
+	}
+
+	.navbar a:hover {
+		background: var(--hover-color);
+	}
 }
 
 .header .navbar a.active,
@@ -137,6 +150,16 @@ header.scrolled {
 .user {
 	display: flex;
 	align-items: center;
+	background: var(--card-bg);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--border-radius);
+	padding: 0.8rem 1.5rem;
+	transition: all 0.3s ease;
+}
+
+.user:hover {
+	background: var(--hover-color);
+	transform: translateY(-2px);
 }
 
 .user i {
@@ -946,18 +969,46 @@ header.scrolled {
 }
 
 .skills-main .skills-section .skills-group-row .progress-bar {
+	position: relative;
 	width: 100%;
-	height: 7px;
-	margin-top: 5px;
-	background: gray;
-	border-radius: 20px;
+	height: 8px;
+	background: #f0f0f0;
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .skills-main .skills-section .skills-group-row .progress-per {
-	width: 50%;
-	height: 7px;
-	border-radius: 20px;
-	background-color: var(--main-color);
+	position: relative;
+	width: 0%;
+	height: 100%;
+	background: #4a90e2;
+	border-radius: 10px;
+	transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Add loading effect */
+.progress-per::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, 
+		transparent, 
+		rgba(255, 255, 255, 0.3), 
+		transparent);
+	animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(100%); }
+}
+
+/* Percentage number animation */
+.progress-block {
+	transition: opacity 0.3s ease;
 }
 
 .skills-main .skills-section .skills-group-row .block-header {
@@ -1792,4 +1843,360 @@ header.scrolled {
 		flex-direction: column;
 		row-gap: 10px;
 	}
+}
+
+/* Add glass-morphism effect to cards and sections */
+.skills-section, .hobbies-section, .education-section, 
+.career-section, .testimonials-section {
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern hover effects for interactive elements */
+.navbar a {
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--accent-color);
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* Modern buttons */
+.user, .main-items {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.user:hover, .main-items:hover {
+    background: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+/* Smooth scrolling for the whole page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Contact Me button styling */
+.user.main-items {
+    background: rgba(74, 144, 226, 0.1);
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+}
+
+.user.main-items:hover {
+    background: rgba(74, 144, 226, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user.main-items .cm-icon {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+    .user.main-items {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+        min-width: fit-content;
+    }
+    
+    .user.main-items .cm-icon {
+        padding: 6px;
+    }
+}
+
+/* Animation classes */
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-in, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Progress bar animation */
+.progress-per {
+    width: 0%;
+    height: 100%;
+    background: #4a90e2;
+    border-radius: 10px;
+    transition: width 1.5s ease-in-out;
+}
+
+/* Add specific widths based on skill percentages */
+.html .progress-per { width: 70%; }
+.css .progress-per { width: 70%; }
+.js .progress-per { width: 70%; }
+.python .progress-per { width: 55%; }
+.communication .progress-per { width: 85%; }
+.team-work .progress-per { width: 70%; }
+.management .progress-per { width: 65%; }
+.creativity .progress-per { width: 80%; }
+
+/* Progress bar animation styles */
+.progress-bar {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.progress-per {
+    position: relative;
+    width: 0%;
+    height: 100%;
+    background: #4a90e2;
+    border-radius: 10px;
+    transition: width 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    visibility: visible;
+}
+
+/* Loading shimmer effect */
+.progress-per.animate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(200%); }
+}
+
+.skills-group-row {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--main-color);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.skill {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.icon-img {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, color;
+}
+
+.progress-per {
+    transition: width 2s ease-out;
+}
+
+/* Add these new styles */
+
+/* Profile image hover effect */
+.profile-image {
+    position: relative;
+    animation: none !important; /* Force override any animations */
+    transform: none !important; /* Force override any transforms */
+}
+
+
+/* Text animation */
+.animate-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-text-delay {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards 0.3s;
+}
+
+.animate-buttons {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards 0.6s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Glowing button effect */
+.glow-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.glow-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #4a90e2, #64ffda, #4a90e2);
+    background-size: 400%;
+    z-index: -1;
+    animation: glowing 20s linear infinite;
+    filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 6px;
+}
+
+.glow-button:hover::before {
+    opacity: 1;
+}
+
+.glow-button:active {
+    transform: scale(0.95);
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* Floating animation for profile image */
+.profile-image {
+    animation: none;
+}
+
+/* Typed.js cursor customization */
+.typed-cursor {
+    opacity: 1;
+    animation: typedjsBlink 0.7s infinite;
+    -webkit-animation: typedjsBlink 0.7s infinite;
+    animation: typedjsBlink 0.7s infinite;
+    color: var(--accent-color);
+}
+
+@keyframes typedjsBlink {
+    50% { opacity: 0.0; }
+}
+
+@-webkit-keyframes typedjsBlink {
+    0% { opacity: 1; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1; }
+}
+
+/* Add particle background */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-image {
+        animation: none;
+    }
+    
+    .profile-image:hover {
+        transform: scale(1.02) rotate(1deg);
+    }
 }
